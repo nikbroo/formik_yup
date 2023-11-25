@@ -1,23 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useFormik, Formik, Form, Field } from "formik";
+import { signupValidation } from "./signupValidation";
 
+const initialValues = {
+  name: "",
+  email: "",
+  password: "",
+  cpassword: "",
+};
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Formik initialValues={initialValues} validationSchema={signupValidation}>
+        {({ errors }) => (
+          <Form>
+            <label htmlFor="name">Name</label>
+            <br />
+            <Field type="text" name="name" />
+            <br />
+            {errors.name && <small>{errors.name}</small>}
+            <br />
+
+            <label htmlFor="email">Email</label>
+            <br />
+            <Field type="email" name="email" />
+            <br />
+            {errors.email && <small>{errors.email}</small>}
+            <br />
+
+            <label htmlFor="password">Password</label>
+            <br />
+            <Field type="password" name="password" />
+            <br />
+            {errors.password && <small>{errors.password}</small>}
+            <br />
+            <label htmlFor="cpassword">Confirm Password</label>
+            <br />
+            <Field type="password" name="cpassword" />
+            <br />
+            {errors.cpassword && <small>{errors.cpassword}</small>}
+            <br />
+            <button type="submit">Submit</button>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 }
